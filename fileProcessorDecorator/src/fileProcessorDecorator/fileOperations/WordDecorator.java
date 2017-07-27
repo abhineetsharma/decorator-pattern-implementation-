@@ -1,0 +1,7 @@
+package fileProcessorDecorator.fileOperations;
+
+/**
+ * Created by abhineetsharma on 7/25/17.
+ */
+public class WordDecorator extends FileProcessorAbstractBase {
+}
