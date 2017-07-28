@@ -1,5 +1,8 @@
 package fileProcessorDecorator.driver;
 
+import fileProcessorDecorator.fileOperations.*;
+import fileProcessorDecorator.util.FileProcessor;
+
 /**
  * Created by abhineetsharma on 7/24/17.
  */
@@ -17,6 +20,11 @@ public class Driver {
                 System.out.println(String.format("Error:No %s file passed", output));
                 System.exit(1);
             }
+
+            InputDetails inp = new InputDetails(input);
+            inp.getParagraph(inp);
+
+
         } else {
             System.out.println("Error: wrong number of argument passes");
             System.exit(1);
