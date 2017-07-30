@@ -7,16 +7,16 @@ import java.util.List;
  * Created by abhineetsharma on 7/25/17.
  */
 public class WordDecorator extends FileProcessorAbstractBase {
-    InputDetails inputDetails;
+    FileProcessorAbstractBase fileProcessor;
 
-    public WordDecorator(InputDetails inputDetails1){
-        inputDetails = inputDetails1;
+    public WordDecorator(FileProcessorAbstractBase fileProcessor1){
+        fileProcessor = fileProcessor1;
     }
 
 
     @Override
     public void process(InputDetails inputDetails1) {
-        List<String> stringList = getStoredText();
+        List<String> stringList = inputDetails1.getStoredText();
         List<String> sli = new ArrayList<>();
         for(String st  : stringList){
             String [] starr = st.split(" ");
@@ -28,9 +28,8 @@ public class WordDecorator extends FileProcessorAbstractBase {
         System.out.println("\n\nWord\n\n");
         for(String s : sli)
             System.out.println(s+"\n");
-        setStoredText(sli);
-        inputDetails1 = new WordFrequencyDecorator(inputDetails1);
-        inputDetails1.process(inputDetails1);
+        inputDetails1.setStoredText(sli);
+        fileProcessor.process(inputDetails1);
 
     }
 }

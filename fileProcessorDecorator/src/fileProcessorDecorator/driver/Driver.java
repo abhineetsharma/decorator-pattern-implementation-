@@ -2,6 +2,7 @@ package fileProcessorDecorator.driver;
 
 import fileProcessorDecorator.fileOperations.*;
 import fileProcessorDecorator.util.FileProcessor;
+import org.omg.PortableInterceptor.INACTIVE;
 
 /**
  * Created by abhineetsharma on 7/24/17.
@@ -22,7 +23,12 @@ public class Driver {
             }
 
             InputDetails inp = new InputDetails(input);
-            inp.process(inp) ;
+
+            FileProcessorAbstractBase fileProcessorAbstractBase = new WordFrequencyDecorator(null);
+            fileProcessorAbstractBase = new WordDecorator(fileProcessorAbstractBase);
+            fileProcessorAbstractBase = new SentenceDecorator(fileProcessorAbstractBase);
+            fileProcessorAbstractBase = new ParagraphDecorator(fileProcessorAbstractBase);
+            fileProcessorAbstractBase.process(inp);
 
 
 

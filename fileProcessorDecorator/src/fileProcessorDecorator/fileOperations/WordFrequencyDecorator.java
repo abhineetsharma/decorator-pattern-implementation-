@@ -6,17 +6,17 @@ import java.util.*;
  * Created by abhineetsharma on 7/24/17.
  */
 public class WordFrequencyDecorator extends FileProcessorAbstractBase {
-    InputDetails inputDetails;
+    FileProcessorAbstractBase fileProcessor;
 
-    public WordFrequencyDecorator(InputDetails inputDetails1){
-        inputDetails = inputDetails1;
+    public WordFrequencyDecorator(FileProcessorAbstractBase fileProcessor1){
+        fileProcessor = fileProcessor1;
     }
 
 
     @Override
     public void process(InputDetails inputDetails1) {
 
-        List<String> stringList = getStoredText();
+        List<String> stringList = inputDetails1.getStoredText();
         Map<String,Integer> map = new TreeMap<>();
         for(String st  : stringList){
             Object obj =  map.get(st);

@@ -7,16 +7,16 @@ import java.util.List;
  * Created by abhineetsharma on 7/24/17.
  */
 public class SentenceDecorator extends FileProcessorAbstractBase {
-    InputDetails inputDetails;
+    FileProcessorAbstractBase fileProcessor;
 
-    public SentenceDecorator(InputDetails inputDetails1){
-        inputDetails = inputDetails1;
+    public SentenceDecorator(FileProcessorAbstractBase fileProcessorI){
+        fileProcessor = fileProcessorI;
     }
 
 
     @Override
     public void process(InputDetails inputDetails1) {
-        List<String> stringList = getStoredText();
+        List<String> stringList = inputDetails1.getStoredText();
         List<String> sli = new ArrayList<>();
         for(String st  : stringList){
             String [] starr = st.split("[\\.]");
@@ -27,9 +27,8 @@ public class SentenceDecorator extends FileProcessorAbstractBase {
         System.out.println("\n\nSentence\n\n");
         for(String s : sli)
             System.out.println(s+"\n");
-         setStoredText(sli);
-        inputDetails1 = new WordDecorator(inputDetails1);
-        inputDetails1.process(inputDetails1);
+         inputDetails1.setStoredText(sli);
+        fileProcessor.process(inputDetails1);
 
 
     }
