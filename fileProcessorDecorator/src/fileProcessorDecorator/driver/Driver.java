@@ -22,7 +22,9 @@ public class Driver {
             }
 
             InputDetails inp = new InputDetails(input);
-            inp.getParagraph(inp);
+            inp.process(inp) ;
+
+
 
 
         } else {

@@ -14,9 +14,11 @@ public class ParagraphDecorator extends FileProcessorAbstractBase{
     }
 
 
+
+
     @Override
-    public List<String> process(InputDetails inputDetails) {
-        List<String> stringList = inputDetails.process(inputDetails);
+    public void process(InputDetails inputDetails1) {
+        List<String> stringList = getStoredText();
         List<String> sli = new ArrayList <>();
         for(String st  : stringList){
             String [] starr = st.split("[\\.]\\s\\s|[\\n]");
@@ -27,6 +29,9 @@ public class ParagraphDecorator extends FileProcessorAbstractBase{
         System.out.println("\n\nParagraph\n\n");
         for(String s : sli)
             System.out.println(s+"\n");
-        return sli;
+        setStoredText( sli);
+        inputDetails1 = new SentenceDecorator(inputDetails1);
+        inputDetails1.process(inputDetails1);
+
     }
 }

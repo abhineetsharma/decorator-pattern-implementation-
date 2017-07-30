@@ -12,9 +12,11 @@ public class WordDecorator extends FileProcessorAbstractBase {
     public WordDecorator(InputDetails inputDetails1){
         inputDetails = inputDetails1;
     }
+
+
     @Override
-    public List<String> process(InputDetails inputDetails1) {
-        List<String> stringList = inputDetails.process(inputDetails1 );
+    public void process(InputDetails inputDetails1) {
+        List<String> stringList = getStoredText();
         List<String> sli = new ArrayList<>();
         for(String st  : stringList){
             String [] starr = st.split(" ");
@@ -26,7 +28,9 @@ public class WordDecorator extends FileProcessorAbstractBase {
         System.out.println("\n\nWord\n\n");
         for(String s : sli)
             System.out.println(s+"\n");
+        setStoredText(sli);
+        inputDetails1 = new WordFrequencyDecorator(inputDetails1);
+        inputDetails1.process(inputDetails1);
 
-        return sli;
     }
 }

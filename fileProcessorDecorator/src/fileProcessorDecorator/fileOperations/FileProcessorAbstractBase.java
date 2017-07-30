@@ -9,6 +9,6 @@ public abstract class FileProcessorAbstractBase extends InputDetails{
 
 
 
-    public abstract List<String> process(InputDetails inputDetails);
+    public abstract void process(InputDetails inputDetails);
 
 }

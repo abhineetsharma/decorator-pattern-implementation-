@@ -13,9 +13,10 @@ public class SentenceDecorator extends FileProcessorAbstractBase {
         inputDetails = inputDetails1;
     }
 
+
     @Override
-    public List<String> process(InputDetails inputDetails) {
-        List<String> stringList = inputDetails.process(inputDetails);
+    public void process(InputDetails inputDetails1) {
+        List<String> stringList = getStoredText();
         List<String> sli = new ArrayList<>();
         for(String st  : stringList){
             String [] starr = st.split("[\\.]");
@@ -26,6 +27,10 @@ public class SentenceDecorator extends FileProcessorAbstractBase {
         System.out.println("\n\nSentence\n\n");
         for(String s : sli)
             System.out.println(s+"\n");
-        return sli;
+         setStoredText(sli);
+        inputDetails1 = new WordDecorator(inputDetails1);
+        inputDetails1.process(inputDetails1);
+
+
     }
 }

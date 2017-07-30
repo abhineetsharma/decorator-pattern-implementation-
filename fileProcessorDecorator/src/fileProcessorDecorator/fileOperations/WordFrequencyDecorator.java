@@ -11,10 +11,12 @@ public class WordFrequencyDecorator extends FileProcessorAbstractBase {
     public WordFrequencyDecorator(InputDetails inputDetails1){
         inputDetails = inputDetails1;
     }
-    @Override
-    public List<String> process(InputDetails inputDetails1) {
 
-        List<String> stringList = inputDetails.process(inputDetails1);
+
+    @Override
+    public void process(InputDetails inputDetails1) {
+
+        List<String> stringList = getStoredText();
         Map<String,Integer> map = new TreeMap<>();
         for(String st  : stringList){
             Object obj =  map.get(st);
@@ -30,6 +32,5 @@ public class WordFrequencyDecorator extends FileProcessorAbstractBase {
 
             System.out.println(map+"\n");
 
-        return null;
     }
 }
