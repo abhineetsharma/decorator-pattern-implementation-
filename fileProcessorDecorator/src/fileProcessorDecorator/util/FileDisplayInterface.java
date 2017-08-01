@@ -2,5 +2,5 @@ package fileProcessorDecorator.util;
 
 
 interface FileDisplayInterface {
-    void writeToFile();
+    void writeToFile(String output);
 }

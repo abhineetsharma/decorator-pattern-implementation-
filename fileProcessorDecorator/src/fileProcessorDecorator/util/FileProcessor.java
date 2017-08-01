@@ -68,7 +68,6 @@ public class FileProcessor {
     }
 
 
-
     @Override
     public String toString() {
         String className = this.getClass().getName();
@@ -77,34 +76,4 @@ public class FileProcessor {
         System.out.println(str);
         return str;
     }
-
-//    public void writeToFile(String content, String outputFilePath) {
-//        Logger.writeMessage(content, INFO);
-//        Logger.writeMessage(content, FILE_PROCESSOR);
-//        Logger.writeMessage(String.format("Write to file %s started", outputFilePath), FILE_PROCESSOR);
-//        File file;
-//        try {
-//            if (null != outputFilePath && outputFilePath.trim().length() > 0) {
-//                file = new File(outputFilePath);
-//
-//                if (file.exists() && !file.isDirectory()) file.delete();
-//
-//                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-//                        new FileOutputStream(outputFilePath), "utf-8"))) {
-//                    String str = content;
-//                    writer.write(str);
-//                }
-//                Logger.writeMessage(String.format("Write to file %s done", outputFilePath), FILE_PROCESSOR);
-//                Logger.addTextSeparator(FILE_PROCESSOR);
-//
-//            } else {
-//                String msg = "No output file found, file either is null or a blank string";
-//                Logger.writeMessage(msg, FILE_PROCESSOR);
-//            }
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            System.out.println("Error in printing stored string into the given output file");
-//            System.exit(1);
-//        }
-//    }
 }

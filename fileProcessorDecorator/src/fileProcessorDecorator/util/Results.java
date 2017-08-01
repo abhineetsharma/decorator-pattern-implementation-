@@ -7,16 +7,14 @@ import java.io.*;
 public class Results implements StdoutDisplayInterface, FileDisplayInterface {
 
     private StringBuilder stringBuilderStorage = new StringBuilder();
-    private String outputPath;
-
+    private String output;
     Logger.DebugLevel INFO = Logger.DebugLevel.INFO;
     Logger.DebugLevel CONSTRUCTOR = Logger.DebugLevel.CONSTRUCTOR;
     Logger.DebugLevel FILE_PROCESSOR = Logger.DebugLevel.FILE_PROCESSOR;
 
+    public enum DECLARATION{START,END};
     public Results(String path) {
-        outputPath = null;
-        if (null != path && path.trim().length() > 0)
-            outputPath = path;
+
         Logger.addTextSeparator(CONSTRUCTOR);
         Logger.writeMessage(String.format("Results Constructor: Object Crested with outputPath set to : %s",path),CONSTRUCTOR);
         Logger.addTextSeparator(CONSTRUCTOR);
@@ -31,7 +29,7 @@ public class Results implements StdoutDisplayInterface, FileDisplayInterface {
 
     public void addTextSeparator() {
         StringBuilder sbr = new StringBuilder("\n");
-        for (int i = 0; i < 72; i++) {
+        for (int i = 0; i < 120; i++) {
             sbr.append("-");
         }
         sbr.append("\n");
@@ -48,7 +46,8 @@ public class Results implements StdoutDisplayInterface, FileDisplayInterface {
     }
 
     @Override
-    public void writeToFile() {
+    public void writeToFile(String outputPath) {
+        output= outputPath;
         File file;
         try {
             if (null != outputPath && outputPath.trim().length() > 0) {
@@ -62,7 +61,8 @@ public class Results implements StdoutDisplayInterface, FileDisplayInterface {
                     writer.write(str);
                 }
             } else {
-                String msg = "No output file found, file either is null or a blank string";
+                System.out.println("No output file found, file either is null or a blank string");
+                System.exit(1);
                 //storeNewResult(msg);
             }
         } catch (Exception ex) {
@@ -71,12 +71,25 @@ public class Results implements StdoutDisplayInterface, FileDisplayInterface {
             System.exit(1);
         }
     }
+    public void declareTransformation(DECLARATION declaration,String name) {
+        StringBuilder sbr = new StringBuilder();
+        sbr.append("--- DECORATOR_");
+        for (char c : name.toCharArray()) {
+            int n = (int) c;
+            //if (n <= (int) 'Z' && n >= (int) 'A')
+                //sbr.append("_");
+
+            sbr.append(c);
+        }
+        sbr.append("_"+declaration.toString()+" ---");
+        storeNewResult(sbr.toString().trim());
+    }
 
     @Override
     public String toString() {
         String className = this.getClass().getName();
         String description = "This class has a data structure as private data member that store Strings and it implements FileDisplayInterface and StdoutDisplayInterface";
-        String str = String.format("\nClass : %s\nMethod toString()\nDescription : %s\nPrivate variable :\noutputPath value is : %s\nstringBuilderStorage value is: %s\n", className, description, outputPath, getStoredString());
+        String str = String.format("\nClass : %s\nMethod toString()\nDescription : %s\nPrivate variable :\noutputPath value is : %s\nstringBuilderStorage value is: %s\n", className, description,output, getStoredString());
         System.out.println(str);
         return str;
     }

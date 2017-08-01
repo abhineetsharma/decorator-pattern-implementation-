@@ -1,5 +1,7 @@
 package fileProcessorDecorator.fileOperations;
 
+import fileProcessorDecorator.util.Results;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,26 +11,36 @@ import java.util.List;
 public class SentenceDecorator extends FileProcessorAbstractBase {
     FileProcessorAbstractBase fileProcessor;
 
-    public SentenceDecorator(FileProcessorAbstractBase fileProcessorI){
+    public SentenceDecorator(FileProcessorAbstractBase fileProcessorI) {
         fileProcessor = fileProcessorI;
     }
 
 
     @Override
-    public void process(InputDetails inputDetails1) {
-        List<String> stringList = inputDetails1.getStoredText();
-        List<String> sli = new ArrayList<>();
-        for(String st  : stringList){
-            String [] starr = st.split("[\\.]");
-            for(String s : starr){
-                sli.add(s);
+    public void process(InputDetails inputDetails1, Results results) {
+
+        results.addTextSeparator();
+        results.declareTransformation(Results.DECLARATION.START,this.getClass().getSimpleName());
+        results.addTextSeparator();
+
+        List <String> stringList = inputDetails1.getStoredText();
+        List <String> sli = new ArrayList <>();
+        for (String st : stringList) {
+            String[] starr = st.split("[\\.]");
+            for (String s : starr) {
+                sli.add(s.trim());
             }
         }
-        System.out.println("\n\nSentence\n\n");
-        for(String s : sli)
-            System.out.println(s+"\n");
-         inputDetails1.setStoredText(sli);
-        fileProcessor.process(inputDetails1);
+
+        for (String s : sli)
+            results.storeNewResult(s + "\n");
+
+        inputDetails1.setStoredText(sli);
+
+        results.addTextSeparator();
+        results.declareTransformation(Results.DECLARATION.END,this.getClass().getSimpleName());
+
+        fileProcessor.process(inputDetails1, results);
 
 
     }

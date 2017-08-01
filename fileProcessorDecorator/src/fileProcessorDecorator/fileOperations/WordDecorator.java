@@ -1,5 +1,7 @@
 package fileProcessorDecorator.fileOperations;
 
+import fileProcessorDecorator.util.Results;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,21 +17,32 @@ public class WordDecorator extends FileProcessorAbstractBase {
 
 
     @Override
-    public void process(InputDetails inputDetails1) {
+    public void process(InputDetails inputDetails1, Results results) {
+
+        results.addTextSeparator();
+        results.declareTransformation(Results.DECLARATION.START,this.getClass().getSimpleName());
+        results.addTextSeparator();
+
         List<String> stringList = inputDetails1.getStoredText();
         List<String> sli = new ArrayList<>();
         for(String st  : stringList){
             String [] starr = st.split(" ");
             for(String s : starr){
-                if(s!=null || !s.equals(" ") || !s.isEmpty())
-                sli.add(s);
+                if(s!=null && !s.trim().isEmpty()){
+                    sli.add(s);
+                    results.storeNewResult(s);
+                }
+
             }
         }
-        System.out.println("\n\nWord\n\n");
-        for(String s : sli)
-            System.out.println(s+"\n");
+
+
+
         inputDetails1.setStoredText(sli);
-        fileProcessor.process(inputDetails1);
+        results.addTextSeparator();
+        results.declareTransformation(Results.DECLARATION.END,this.getClass().getSimpleName());
+
+        fileProcessor.process(inputDetails1,results);
 
     }
 }

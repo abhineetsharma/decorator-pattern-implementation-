@@ -1,5 +1,7 @@
 package fileProcessorDecorator.fileOperations;
 
+import fileProcessorDecorator.util.Results;
+
 import java.util.*;
 
 /**
@@ -14,11 +16,21 @@ public class WordFrequencyDecorator extends FileProcessorAbstractBase {
 
 
     @Override
-    public void process(InputDetails inputDetails1) {
+    public void process(InputDetails inputDetails1,Results results) {
 
         List<String> stringList = inputDetails1.getStoredText();
         Map<String,Integer> map = new TreeMap<>();
+
+        results.addTextSeparator();
+        results.declareTransformation(Results.DECLARATION.START,this.getClass().getSimpleName());
+        results.addTextSeparator();
+
+
         for(String st  : stringList){
+            st =removeUnwantedCharFromString(st.trim());
+
+            if(st.length()==0)continue;
+
             Object obj =  map.get(st);
             if(obj == null){
                 map.put(st,1);
@@ -28,9 +40,18 @@ public class WordFrequencyDecorator extends FileProcessorAbstractBase {
                 map.put(st,value);
             }
         }
-        System.out.println("\n\nWord Frequency\n\n");
-
-            System.out.println(map+"\n");
-
+        Iterator <Map.Entry <String, Integer>> it = map.entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry<String,Integer> m = it.next();
+            String msg = String.format("Word: %-15s Count: %d",m.getKey(),m.getValue());
+            results.storeNewResult(msg);
+            it.remove();
+        }
+        results.addTextSeparator();
+        results.declareTransformation(Results.DECLARATION.END,this.getClass().getSimpleName());
+        results.addTextSeparator();
+    }
+    String removeUnwantedCharFromString(String str){
+        return str.replaceAll("[^a-zA-Z0-9]","");
     }
 }
